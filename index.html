@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Beyond GA4 — What Contentsquare Reveals for Godrej Capital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+:root{
+  --bg:#f4f6fa;
+  --surface:#ffffff;
+  --surface-2:#fbfcfe;
+  --ink:#0e1f36;
+  --ink-soft:#5b6b82;
+  --ink-faint:#8695a8;
+  --navy:#0d2748;
+  --navy-2:#123763;
+  --cs:#6c3bf0;
+  --cs-2:#8a63f4;
+  --cs-soft:#efeafd;
+  --ga4:#c14a3d;
+  --ga4-soft:#faece9;
+  --ok:#1f9d6b;
+  --ok-soft:#e6f5ee;
+  --amber:#dd9a1f;
+  --amber-soft:#fbf1dc;
+  --line:#e6eaf1;
+  --line-2:#eef1f6;
+  --shadow-sm:0 1px 2px rgba(13,39,72,.05),0 2px 8px rgba(13,39,72,.05);
+  --shadow:0 2px 6px rgba(13,39,72,.06),0 18px 40px -18px rgba(13,39,72,.18);
+  --radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:78px}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{line-height:1.15;letter-spacing:-.01em}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+a{color:inherit;text-decoration:none}
+
+/* ---------- top nav ---------- */
+.topnav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);
+  backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--line)}
+.topnav .wrap{display:flex;align-items:center;gap:20px;height:64px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:-.02em;white-space:nowrap}
+.brand .logo{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--cs),var(--navy-2));
+  display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px}
+.brand small{display:block;font-weight:500;font-size:11px;color:var(--ink-faint);letter-spacing:0}
+.nav-pills{display:flex;gap:4px;margin-left:auto;overflow:auto;scrollbar-width:none}
+.nav-pills::-webkit-scrollbar{display:none}
+.nav-pills a{font-size:12.5px;font-weight:500;color:var(--ink-soft);padding:7px 11px;border-radius:9px;white-space:nowrap;transition:.15s}
+.nav-pills a:hover{background:var(--line-2);color:var(--ink)}
+.nav-pills a.active{background:var(--cs-soft);color:var(--cs)}
+
+/* ---------- hero ---------- */
+.hero{background:
+   radial-gradient(1000px 420px at 82% -8%,rgba(108,59,240,.30),transparent 60%),
+   radial-gradient(760px 380px at 4% 8%,rgba(18,55,99,.28),transparent 58%),
+   linear-gradient(160deg,#0c2242 0%,#0d2748 46%,#132a4d 100%);
+  color:#fff;padding:66px 0 128px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;inset:0;background-image:
+   linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+   linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:44px 44px;mask:radial-gradient(60% 60% at 70% 20%,#000,transparent);
+  -webkit-mask:radial-gradient(60% 60% at 70% 20%,#000,transparent);pointer-events:none}
+.hero .wrap{position:relative;z-index:2}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:.04em;
+  text-transform:uppercase;color:#c9d7ec;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
+  padding:6px 13px;border-radius:100px}
+.hero h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(30px,4.4vw,52px);margin:20px 0 14px;max-width:16ch}
+.hero h1 .hl{color:#c3aef8}
+.hero p.sub{font-size:clamp(15px,1.6vw,18.5px);color:#cdd9ec;max-width:60ch}
+.hero .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;color:#dbe6f5;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);padding:8px 13px;border-radius:10px}
+.chip b{color:#fff;font-weight:600}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--cs-2);box-shadow:0 0 0 4px rgba(138,99,244,.25)}
+
+/* floated stat strip */
+.statstrip{margin-top:-84px;position:relative;z-index:3}
+.statstrip .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 20px 18px;box-shadow:var(--shadow)}
+.stat .n{font-size:30px;font-weight:800;letter-spacing:-.02em;color:var(--navy)}
+.stat .n .u{font-size:16px;font-weight:600;color:var(--ink-soft)}
+.stat .l{font-size:12.6px;color:var(--ink-soft);margin-top:3px;font-weight:500}
+.stat .b{font-size:11.5px;color:var(--cs);font-weight:600;margin-top:9px;display:inline-flex;gap:6px;align-items:center}
+
+/* ---------- sections ---------- */
+section.cap{padding:66px 0 8px}
+.cap-head{max-width:78ch}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;font-size:12.5px;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--cs)}
+.eyebrow .num{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--cs-soft);
+  color:var(--cs);font-weight:800;font-size:12px;letter-spacing:0}
+.eyebrow .tag{color:var(--ink-faint)}
+.cap h2{font-size:clamp(22px,2.7vw,31px);font-weight:700;color:var(--ink);margin-bottom:12px}
+.cap .lead{font-size:16px;color:var(--ink-soft);max-width:74ch}
+.cap .lead b{color:var(--ink);font-weight:600}
+.cap .lead em{font-style:italic;color:var(--cs);font-weight:600}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm)}
+.card .card-t{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line-2);flex-wrap:wrap}
+.card .card-t h4{font-size:14px;font-weight:700;color:var(--ink)}
+.card .card-t .meta{font-size:11.5px;color:var(--ink-faint);font-weight:500}
+.card .card-b{padding:18px 20px}
+
+.grid-2{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;margin-top:26px;align-items:stretch}
+.grid-2.rev{grid-template-columns:.85fr 1.15fr}
+.side{display:flex;flex-direction:column;gap:16px}
+.example{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--cs);
+  border-radius:12px;padding:16px 18px}
+.example .h{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--cs);margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.example p{font-size:13.6px;color:var(--ink-soft)}
+.example p b{color:var(--ink);font-weight:600}
+
+/* vs cards */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.vs-card{border-radius:14px;padding:18px 19px;border:1px solid var(--line)}
+.vs-card .vh{display:flex;align-items:center;gap:9px;font-weight:700;font-size:13.5px;margin-bottom:12px}
+.vs-card .badge{font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:6px}
+.vs-card.ga4{background:var(--ga4-soft);border-color:#f0d3ce}
+.vs-card.ga4 .vh{color:var(--ga4)}
+.vs-card.ga4 .badge{background:#f4d6d1;color:var(--ga4)}
+.vs-card.cs{background:linear-gradient(180deg,#f6f2fe,#fbf9ff);border-color:#e3d8fb}
+.vs-card.cs .vh{color:var(--cs)}
+.vs-card.cs .badge{background:#e6dbfb;color:var(--cs)}
+.vs-card ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.vs-card li{font-size:13.2px;color:var(--ink-soft);display:flex;gap:9px;line-height:1.45}
+.vs-card li b{color:var(--ink);font-weight:600}
+.mk{flex:0 0 auto;width:17px;height:17px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;margin-top:1px}
+.vs-card.ga4 .mk{background:#eabbb3;color:#8f291d}
+.vs-card.cs .mk{background:#cdb8f7;color:#4a1fb0}
+
+/* chart holders */
+.chart{width:100%}
+#funnelChart{height:344px}
+#sunburstChart{height:466px}
+#zoneBars{height:322px}
+#demChart{height:330px}
+.gauge{height:184px}
+
+/* signal chips (autocapture) */
+.signals{display:flex;flex-wrap:wrap;gap:9px}
+.sig{display:inline-flex;align-items:center;gap:8px;font-size:12.8px;font-weight:500;color:var(--ink);
+  background:var(--surface-2);border:1px solid var(--line);padding:8px 12px;border-radius:100px}
+.sig svg{width:14px;height:14px;color:var(--cs)}
+.sig.hot{border-color:#f0d3ce;background:var(--ga4-soft);color:var(--ga4)}
+.sig.hot svg{color:var(--ga4)}
+.capnote{margin-top:14px;font-size:12.4px;color:var(--ink-faint)}
+
+/* time-to-insight compare */
+.tti{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.tti .b{border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+.tti .b.ga4{background:var(--ga4-soft);border-color:#f0d3ce}
+.tti .b.cs{background:#f6f2fe;border-color:#e3d8fb}
+.tti .t{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.tti .b.ga4 .t{color:var(--ga4)} .tti .b.cs .t{color:var(--cs)}
+.tti .big{font-size:23px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
+.tti .d{font-size:12.2px;color:var(--ink-soft);margin-top:3px}
+
+/* metric cards */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.mcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:17px 17px 15px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.mcard:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--cs)}
+.mcard.warn:before{background:var(--ga4)} .mcard.amb:before{background:var(--amber)} .mcard.good:before{background:var(--ok)}
+.mcard .mi{font-size:12px;font-weight:600;color:var(--ink-soft);display:flex;align-items:center;gap:8px}
+.mcard .mv{font-size:29px;font-weight:800;letter-spacing:-.02em;color:var(--navy);margin-top:8px}
+.mcard .mv .u{font-size:14px;font-weight:600;color:var(--ink-soft)}
+.mcard .ms{font-size:11.8px;color:var(--ink-faint);margin-top:4px}
+.mcard .flag{position:absolute;top:14px;right:14px;font-size:10.5px;font-weight:700;padding:3px 7px;border-radius:6px;background:var(--ga4-soft);color:var(--ga4)}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* gauges */
+.gcard{text-align:center}
+.gcard .cap-l{font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-top:-6px}
+
+/* zone page mock */
+.zonemock{padding:16px}
+.formframe{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.formframe .bar{height:34px;background:linear-gradient(90deg,#0d2748,#123763);display:flex;align-items:center;padding:0 12px;gap:6px}
+.formframe .bar i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3)}
+.formframe .bar span{color:#fff;font-size:11px;font-weight:600;margin-left:8px;opacity:.9}
+.zrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border-bottom:1px solid var(--line-2)}
+.zrow:last-child{border-bottom:0}
+.zrow .zl{display:flex;flex-direction:column;gap:3px}
+.zrow .zl b{font-size:13px;color:var(--ink);font-weight:600}
+.zrow .zl small{font-size:11px;color:var(--ink-faint)}
+.zrow .zt{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap}
+.zt.rage{background:var(--ga4-soft);color:var(--ga4)}
+.zt.hes{background:var(--amber-soft);color:#a9760c}
+.zt.win{background:var(--ok-soft);color:var(--ok)}
+.zt.fold{background:#eef1f6;color:var(--ink-soft)}
+
+/* DEM issues */
+.issues{display:flex;flex-direction:column;gap:11px}
+.issue{display:flex;gap:13px;padding:14px 15px;border:1px solid var(--line);border-radius:12px;background:var(--surface);align-items:flex-start}
+.issue .ic{flex:0 0 auto;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-size:16px}
+.issue.crit .ic{background:var(--ga4-soft)} .issue.warn .ic{background:var(--amber-soft)} .issue.info .ic{background:var(--cs-soft)}
+.issue .tx{flex:1}
+.issue .tx b{font-size:13.5px;color:var(--ink);font-weight:600}
+.issue .tx p{font-size:12.4px;color:var(--ink-soft);margin-top:3px}
+.issue .imp{flex:0 0 auto;text-align:right}
+.issue .imp .v{font-size:15px;font-weight:800;color:var(--ga4)}
+.issue .imp .l{font-size:10.5px;color:var(--ink-faint)}
+.issue.info .imp .v{color:var(--cs)} .issue.warn .imp .v{color:#a9760c}
+
+/* replay mock */
+.replaywrap{display:grid;grid-template-columns:1.05fr .95fr;gap:20px}
+.player{background:#0d1f3a;border-radius:14px;overflow:hidden;border:1px solid #1b3358;box-shadow:var(--shadow)}
+.player .scr{aspect-ratio:16/10.4;background:
+   radial-gradient(420px 200px at 68% 30%,rgba(108,59,240,.22),transparent 60%),
+   linear-gradient(160deg,#132a4d,#0d1f3a);position:relative;overflow:hidden}
+.player .mock-card{position:absolute;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px}
+.cursor{position:absolute;width:16px;height:16px;transform:translate(-50%,-50%);z-index:4}
+.rage-pulse{position:absolute;width:20px;height:20px;border-radius:50%;background:rgba(193,74,61,.55);
+  transform:translate(-50%,-50%);animation:pulse 1.4s infinite;z-index:3}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(193,74,61,.5)}70%{box-shadow:0 0 0 16px rgba(193,74,61,0)}100%{box-shadow:0 0 0 0 rgba(193,74,61,0)}}
+.player .ctrl{display:flex;align-items:center;gap:11px;padding:11px 14px;background:#0b1a30;border-top:1px solid #1b3358}
+.player .ctrl .play{width:28px;height:28px;border-radius:50%;background:var(--cs);display:grid;place-items:center;color:#fff;flex:0 0 auto}
+.player .ctrl .track{flex:1;height:5px;border-radius:4px;background:#22406b;position:relative}
+.player .ctrl .track i{position:absolute;left:0;top:0;bottom:0;width:42%;border-radius:4px;background:var(--cs-2)}
+.player .ctrl .track b{position:absolute;left:42%;top:50%;width:12px;height:12px;border-radius:50%;background:#fff;transform:translate(-50%,-50%)}
+.player .ctrl .rmk{position:absolute;top:50%;width:7px;height:7px;border-radius:50%;background:var(--ga4);transform:translate(-50%,-50%)}
+.player .ctrl .t{font-size:11px;color:#9fb2cd;font-variant-numeric:tabular-nums}
+.player .evt{padding:10px 14px;background:#0b1a30;border-top:1px solid #1b3358;display:flex;gap:8px;flex-wrap:wrap}
+.player .evt span{font-size:10.5px;color:#c6d4e8;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:3px 8px;border-radius:6px}
+.player .evt span.r{color:#f0b3ab;border-color:rgba(193,74,61,.5);background:rgba(193,74,61,.15)}
+
+.insights{display:flex;flex-direction:column;gap:12px}
+.insight{border:1px solid var(--line);border-radius:12px;padding:14px 15px;background:var(--surface);position:relative}
+.insight:before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:3px;background:var(--cs)}
+.insight .it{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--cs)}
+.insight.warn:before{background:var(--ga4)} .insight.warn .it{color:var(--ga4)}
+.insight p{font-size:13.4px;color:var(--ink);margin-top:7px;font-weight:500}
+.insight p b{color:var(--navy);font-weight:700}
+.insight .act{display:inline-flex;align-items:center;gap:7px;margin-top:10px;font-size:12px;font-weight:600;color:var(--cs)}
+
+/* comparison table */
+.tblcard{overflow-x:auto}
+.ctbl{width:100%;border-collapse:collapse;min-width:640px}
+.ctbl th,.ctbl td{padding:15px 18px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line-2)}
+.ctbl thead th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);font-weight:700;background:var(--surface-2)}
+.ctbl thead th.c-cs{color:var(--cs);background:#f6f2fe}
+.ctbl thead th.c-ga4{color:var(--ga4);background:var(--ga4-soft)}
+.ctbl tbody td:first-child{font-weight:600;color:var(--ink);font-size:13.6px;width:24%}
+.ctbl td.c-ga4{background:rgba(193,74,61,.045)}
+.ctbl td.c-cs{background:rgba(108,59,240,.045)}
+.ctbl .cell{display:flex;gap:9px;font-size:13px;color:var(--ink-soft);line-height:1.42}
+.ctbl .cell b{color:var(--ink);font-weight:600}
+.ctbl .x{color:var(--ga4);font-weight:800;flex:0 0 auto}
+.ctbl .v{color:var(--ok);font-weight:800;flex:0 0 auto}
+.ctbl tbody tr:last-child td{border-bottom:0}
+
+/* roi */
+.roi{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+.roicard{background:linear-gradient(165deg,#0d2748,#123763);color:#fff;border-radius:16px;padding:22px 20px;position:relative;overflow:hidden}
+.roicard:after{content:"";position:absolute;right:-30px;top:-30px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(108,59,240,.5),transparent 70%)}
+.roicard .rl{font-size:12.5px;color:#bcd0eb;font-weight:600;position:relative}
+.roicard .rn{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:8px 0 4px;position:relative}
+.roicard .rd{font-size:12.8px;color:#cddcef;position:relative;line-height:1.5}
+
+.takeaway{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--cs);border-radius:14px;padding:22px 24px;box-shadow:var(--shadow-sm)}
+.takeaway h4{font-size:16px;color:var(--ink);margin-bottom:8px}
+.takeaway p{font-size:14px;color:var(--ink-soft)}
+.takeaway p b{color:var(--ink);font-weight:600}
+
+.divider{height:1px;background:var(--line);margin:8px 0}
+footer{padding:40px 0 60px;text-align:center;color:var(--ink-faint);font-size:12px}
+footer b{color:var(--ink-soft)}
+
+.illus{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;color:var(--amber);
+  background:var(--amber-soft);border:1px solid #f0dcae;padding:4px 10px;border-radius:100px}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:900px){
+  .statstrip .grid{grid-template-columns:repeat(2,1fr)}
+  .grid-2,.grid-2.rev{grid-template-columns:1fr}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .replaywrap{grid-template-columns:1fr}
+  .nav-pills{display:none}
+  .vs{grid-template-columns:1fr}
+  .roi{grid-template-columns:1fr}
+  .two,.tti{grid-template-columns:1fr}
+}
+@media(max-width:560px){.statstrip .grid,.metrics{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="topnav">
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo">CS</div>
+      <div>Contentsquare <small>for Godrej Capital</small></div>
+    </div>
+    <div class="nav-pills">
+      <a href="#autocapture" class="active">01 Autocapture</a>
+      <a href="#journeys">02 Journeys</a>
+      <a href="#metrics">03 Experience metrics</a>
+      <a href="#zones">04 Zone analytics</a>
+      <a href="#dem">05 Monitoring</a>
+      <a href="#replay">06 Replay</a>
+      <a href="#compare">07 GA4 vs CS</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker"><span class="dot"></span> Experience Intelligence · Capability Walkthrough</span>
+    <h1>Beyond GA4: what <span class="hl">Contentsquare</span> reveals for Godrej Capital</h1>
+    <p class="sub">A capability-by-capability walkthrough of what one integrated experience-intelligence platform shows about your digital lending journeys — the friction, drop-off and revenue signals GA4 structurally cannot surface.</p>
+    <div class="chips">
+      <span class="chip"><span class="dot"></span> <b>Home Loans · LAP · Udyog · Business &amp; MSME</b></span>
+      <span class="chip">Period <b>1 Mar – 31 May 2026</b></span>
+      <span class="chip">Surfaces <b>Web + App</b></span>
+      <span class="chip">Focus <b>Application &amp; KYC funnels</b></span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ STAT STRIP ============ -->
+<div class="statstrip">
+  <div class="wrap">
+    <div class="grid">
+      <div class="stat reveal">
+        <div class="n">6.2<span class="u">%</span></div>
+        <div class="l">Landing → funded-application submit</div>
+        <div class="b">▲ where the leaks hide</div>
+      </div>
+      <div class="stat reveal">
+        <div class="n">14.5<span class="u">pt</span></div>
+        <div class="l">Single-step drop at KYC / document upload</div>
+        <div class="b">the biggest recoverable loss</div>
+      </div>
+      <div class="stat reveal">
+        <div class="n">3,180</div>
+        <div class="l">Sessions rage-clicking the KYC upload button</div>
+        <div class="b">invisible to GA4</div>
+      </div>
+      <div class="stat reveal">
+        <div class="n">Mins</div>
+        <div class="l">To answer a new question — retroactively, no dev</div>
+        <div class="b">vs weeks of re-tagging in GA4</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ============ 01 AUTOCAPTURE ============ -->
+<section class="cap reveal" id="autocapture">
+  <div class="cap-head">
+    <div class="eyebrow"><span class="num">01</span> Foundation <span class="tag">· the anchor everything builds on</span></div>
+    <h2>Autocapture — understand every interaction, with zero tagging</h2>
+    <p class="lead">Contentsquare automatically captures <b>every</b> click, tap, scroll, hover and form-field interaction across your loan journeys — no predefined events, no dataLayer engineering, no tag manager. Because it captures everything continuously, you can ask brand-new questions about the past and get answers <b>retroactively</b>, in minutes, without a single dev ticket.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-t"><h4>Captured automatically — no setup, on every page</h4><span class="meta">out-of-the-box signal types</span></div>
+      <div class="card-b">
+        <div class="signals">
+          <span class="sig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 9l6 6M9 3v6H3"/></svg> Clicks &amp; taps</span>
+          <span class="sig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg> Scroll depth &amp; speed</span>
+          <span class="sig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M3 12h3M18 12h3"/></svg> Hovers &amp; attention</span>
+          <span class="sig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="4" rx="1"/><rect x="4" y="13" width="10" height="4" rx="1"/></svg> Form-field focus / blur</span>
+          <span class="sig hot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg> Rage clicks</span>
+          <span class="sig hot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg> Dead / U-turn clicks</span>
+          <span class="sig hot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9L2 18a2 2 0 001.7 3h16.6A2 2 0 0022 18L13.7 3.9a2 2 0 00-3.4 0z"/></svg> JS errors on interaction</span>
+          <span class="sig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg> Field re-entries &amp; timing</span>
+        </div>
+        <p class="capnote">Every interaction above is stored for retroactive analysis — even the ones you never thought to measure. No engineering backlog stands between a question and its answer.</p>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="card">
+        <div class="card-t"><h4>Time to answer a new product question</h4></div>
+        <div class="card-b">
+          <div class="tti">
+            <div class="b ga4">
+              <div class="t">GA4</div>
+              <div class="big">2–6 weeks</div>
+              <div class="d">Scope event → brief dev → deploy tag → wait for data to accumulate → only then analyse.</div>
+            </div>
+            <div class="b cs">
+              <div class="t">Contentsquare</div>
+              <div class="big">Minutes</div>
+              <div class="d">Data is already captured. Ask the question against history and get the answer now.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="example">
+        <div class="h">◆ Godrej Capital example</div>
+        <p>A month after launching a new <b>Udyog LAP</b> form, you want to know how many applicants abandoned the <b>“annual turnover”</b> field. In GA4 that field was never tagged, so the data simply doesn’t exist. In Contentsquare it was captured all along — you get the answer <b>retroactively, in minutes</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="vs">
+    <div class="vs-card ga4">
+      <div class="vh"><span class="badge">GA4</span> Predefined &amp; dev-dependent</div>
+      <ul>
+        <li><span class="mk">✕</span><span>Only measures events you <b>defined in advance</b> via GTM / dataLayer.</span></li>
+        <li><span class="mk">✕</span><span>New questions need <b>new tags, a dev sprint</b>, then weeks of fresh data.</span></li>
+        <li><span class="mk">✕</span><span><b>No retroactive analysis</b> — untagged past behaviour is gone forever.</span></li>
+      </ul>
+    </div>
+    <div class="vs-card cs">
+      <div class="vh"><span class="badge">Contentsquare</span> Everything, automatically</div>
+      <ul>
+        <li><span class="mk">✓</span><span>Captures <b>all interactions</b> out of the box — zero manual tagging.</span></li>
+        <li><span class="mk">✓</span><span><b>Retroactive:</b> ask new questions about the past without pre-tagging.</span></li>
+        <li><span class="mk">✓</span><span><b>Zero dev dependency</b> — product, marketing &amp; CX self-serve insight.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ 02 JOURNEYS / SUNBURST ============ -->
+<section class="cap reveal" id="journeys">
+  <div class="cap-head">
+    <div class="eyebrow"><span class="num">02</span> Real behaviour</div>
+    <h2>See the journey applicants actually take — not the one you drew</h2>
+    <p class="lead">A funnel assumes a straight line. Real borrowers <b>loop back to the EMI calculator</b>, re-check eligibility, leave to compare rates, and stall at document upload. Contentsquare’s path visualization shows the true, branching reality — every loop, detour and exit point — while GA4 funnels only show pre-defined, linear step conversion.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-t"><h4>Loan-application journey — actual paths &amp; exits</h4><span class="meta">Landing → Eligibility → EMI → Apply → KYC → Submit · <b>click to explore</b></span></div>
+      <div class="card-b"><div id="sunburstChart" class="chart"></div></div>
+    </div>
+    <div class="side">
+      <div class="card">
+        <div class="card-t"><h4>Same journey as a linear funnel</h4><span class="meta">what GA4 shows</span></div>
+        <div class="card-b"><div id="funnelChart" class="chart"></div></div>
+      </div>
+      <div class="example">
+        <div class="h">◆ Godrej Capital example</div>
+        <p>Between <b>EMI calculator</b> and submit, many applicants loop back 2–3 times to re-model tenure, and a large share <b>exit at document upload</b> rather than proceed. The linear funnel hides this; the path view makes the intervention points obvious.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="vs">
+    <div class="vs-card ga4">
+      <div class="vh"><span class="badge">GA4</span> Idealised, linear</div>
+      <ul>
+        <li><span class="mk">✕</span><span>Funnel / path explorations are <b>pre-defined and linear</b> with capped steps.</span></li>
+        <li><span class="mk">✕</span><span><b>Hides loops, back-tracking</b> and alternate routes users really take.</span></li>
+        <li><span class="mk">✕</span><span>High-volume reports are <b>sampled</b>, blurring the messy tail.</span></li>
+      </ul>
+    </div>
+    <div class="vs-card cs">
+      <div class="vh"><span class="badge">Contentsquare</span> The messy truth</div>
+      <ul>
+        <li><span class="mk">✓</span><span><b>Unsampled path visualization</b> across the full journey.</span></li>
+        <li><span class="mk">✓</span><span>Reveals <b>loops, detours and the exact exit nodes</b> that kill applications.</span></li>
+        <li><span class="mk">✓</span><span>Explore <b>any node</b> — forward or reverse — to see where intent leaks.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ 03 METRICS ============ -->
+<section class="cap reveal" id="metrics">
+  <div class="cap-head">
+    <div class="eyebrow"><span class="num">03</span> Experience metrics</div>
+    <h2>Metrics that explain <em>why</em> people drop — not just that they did</h2>
+    <p class="lead">Pageviews and event counts tell you people left. <b>Frustration and hesitation signals</b> tell you why. Contentsquare provides behavioural metrics GA4 has no native vocabulary for — and ties each one directly to a lending outcome.</p>
+  </div>
+
+  <div class="metrics" style="margin-top:26px">
+    <div class="mcard warn">
+      <div class="flag">GA4: n/a</div>
+      <div class="mi">◆ Rage clicks</div>
+      <div class="mv">3,180</div>
+      <div class="ms">on the KYC “Upload” button · 78% then abandon</div>
+    </div>
+    <div class="mcard amb">
+      <div class="flag">GA4: n/a</div>
+      <div class="mi">◆ Hesitation time</div>
+      <div class="mv">14.6<span class="u">s</span></div>
+      <div class="ms">avg pause on “monthly income” · 22% re-entries</div>
+    </div>
+    <div class="mcard warn">
+      <div class="flag">GA4: n/a</div>
+      <div class="mi">◆ Error clicks</div>
+      <div class="mv">9.7<span class="u">%</span></div>
+      <div class="ms">of upload attempts hit an error state</div>
+    </div>
+    <div class="mcard good">
+      <div class="mi">◆ Engagement depth</div>
+      <div class="mv">61<span class="u">%</span></div>
+      <div class="ms">of mobile users reach the Submit CTA</div>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:16px">
+    <div class="card gcard">
+      <div class="card-t"><h4>Application-form error rate</h4><span class="meta">illustrative · % of sessions</span></div>
+      <div class="card-b"><div id="gaugeErr" class="gauge"></div><div class="cap-l">Sessions hitting a form / API error on apply + KYC</div></div>
+    </div>
+    <div class="card gcard">
+      <div class="card-t"><h4>Engagement depth — mobile app funnel</h4><span class="meta">illustrative · % reaching submit</span></div>
+      <div class="card-b"><div id="gaugeEng" class="gauge"></div><div class="cap-l">Share of mobile applicants scrolling to the Submit CTA</div></div>
+    </div>
+  </div>
+
+  <div class="example" style="margin-top:16px">
+    <div class="h">◆ Godrej Capital example</div>
+    <p>Rage clicks concentrated on the <b>KYC “Upload”</b> button and 14s+ hesitation on the income field predict abandonment far better than any GA4 metric. Together they point to a single fix — a clearer upload component with size/format guidance — worth thousands of recovered application starts.</p>
+  </div>
+
+  <div class="vs">
+    <div class="vs-card ga4">
+      <div class="vh"><span class="badge">GA4</span> Counts, not feelings</div>
+      <ul>
+        <li><span class="mk">✕</span><span>Vocabulary is <b>sessions, users, pageviews, event counts</b>, bounce/engagement rate.</span></li>
+        <li><span class="mk">✕</span><span><b>No native frustration signals</b> — rage/dead/error clicks don’t exist.</span></li>
+        <li><span class="mk">✕</span><span>Any approximation needs <b>fragile custom event engineering</b>.</span></li>
+      </ul>
+    </div>
+    <div class="vs-card cs">
+      <div class="vh"><span class="badge">Contentsquare</span> Behaviour &amp; frustration</div>
+      <ul>
+        <li><span class="mk">✓</span><span><b>Rage, error, dead &amp; U-turn clicks</b>, click recurrence — out of the box.</span></li>
+        <li><span class="mk">✓</span><span><b>Hesitation &amp; attention time</b>, scroll &amp; engagement depth per element.</span></li>
+        <li><span class="mk">✓</span><span>Every metric <b>tied to a step</b> so you know which friction costs applications.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ 04 ZONES ============ -->
+<section class="cap reveal" id="zones">
+  <div class="cap-head">
+    <div class="eyebrow"><span class="num">04</span> On-page &amp; zone analytics</div>
+    <h2>Know which part of the page wins — or kills — the application</h2>
+    <p class="lead">Conversion is decided element by element. Contentsquare measures <b>exposure, interaction and conversion impact for every zone</b> — the specific CTA, field or content block — and attributes goal/revenue value to each. GA4 can tell you a page underperformed; it can’t tell you <b>which part</b> of it did.</p>
+  </div>
+
+  <div class="grid-2 rev">
+    <div class="side">
+      <div class="example">
+        <div class="h">◆ Godrej Capital example</div>
+        <p>On the application page, the <b>income-proof upload zone</b> shows high exposure, high frustration and <b>negative conversion impact</b>, while <b>“Check eligibility”</b> drives the most starts. You now know exactly which block to redesign first — and which to protect.</p>
+      </div>
+      <div class="card zonemock">
+        <div class="card-t" style="border:0;padding:4px 4px 12px"><h4>Application form — zone heat</h4><span class="meta">illustrative</span></div>
+        <div class="formframe">
+          <div class="bar"><i></i><i></i><i></i><span>godrejcapital.com / apply · Business Loan</span></div>
+          <div class="zrow"><div class="zl"><b>“Check eligibility” CTA</b><small>Exposure 96% · click-through 41%</small></div><span class="zt win">▲ drives starts</span></div>
+          <div class="zrow"><div class="zl"><b>Monthly income field</b><small>Avg hesitation 14.6s · 22% re-entries</small></div><span class="zt hes">● hesitation</span></div>
+          <div class="zrow"><div class="zl"><b>Income-proof upload</b><small>3,180 rage clicks · 9.7% error state</small></div><span class="zt rage">▲ rage / drop</span></div>
+          <div class="zrow"><div class="zl"><b>Consent &amp; T&amp;C checkbox</b><small>Exposure 71% · 6% mis-clicks</small></div><span class="zt hes">● minor friction</span></div>
+          <div class="zrow"><div class="zl"><b>Submit application CTA</b><small>Only 61% of mobile users ever see it</small></div><span class="zt fold">▼ below the fold</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-t"><h4>Conversion impact by page zone</h4><span class="meta">illustrative · net effect on application completion</span></div>
+      <div class="card-b"><div id="zoneBars" class="chart"></div>
+        <p class="capnote">Positive bars help completion; negative bars actively suppress it. Contentsquare quantifies this per element and attributes goal value — GA4 stops at the page.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="vs">
+    <div class="vs-card ga4">
+      <div class="vh"><span class="badge">GA4</span> Page-level only</div>
+      <ul>
+        <li><span class="mk">✕</span><span>Reports at <b>page &amp; event</b> grain — no view of individual on-page zones.</span></li>
+        <li><span class="mk">✕</span><span><b>Can’t attribute conversion or revenue</b> to a specific CTA, field or block.</span></li>
+        <li><span class="mk">✕</span><span>Any element-level view needs <b>heavy manual instrumentation</b>.</span></li>
+      </ul>
+    </div>
+    <div class="vs-card cs">
+      <div class="vh"><span class="badge">Contentsquare</span> Element &amp; zone grain</div>
+      <ul>
+        <li><span class="mk">✓</span><span><b>Exposure, interaction &amp; conversion</b> for every zone, automatically.</span></li>
+        <li><span class="mk">✓</span><span><b>Goal / revenue attribution per zone</b> — see what each block is worth.</span></li>
+        <li><span class="mk">✓</span><span>Pinpoints the <b>exact field or CTA</b> to fix, not just the page.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ 05 DEM ============ -->
+<section class="cap reveal" id="dem">
+  <div class="cap-head">
+    <div class="eyebrow"><span class="num">05</span> Experience &amp; performance monitoring</div>
+    <h2>Catch the technical friction silently killing conversions</h2>
+    <p class="lead">A broken upload widget or a slow eligibility API doesn’t trip a marketing alarm — it just quietly costs applications. Within the same platform, Contentsquare <b>proactively detects</b> JS errors, slow pages, API failures and broken journeys, and correlates them straight to behavioural and <b>business impact</b> — “this error cost X application starts.”</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-t"><h4>JS errors vs application submissions</h4><span class="meta">illustrative · one week · inverse correlation</span></div>
+      <div class="card-b"><div id="demChart" class="chart"></div>
+        <p class="capnote">The Wed spike in upload-component errors maps directly to the dip in submissions — root cause and revenue impact in one view.</p>
+      </div>
+    </div>
+    <div class="side">
+      <div class="issues">
+        <div class="issue crit">
+          <div class="ic">⚠️</div>
+          <div class="tx"><b>JS error — document-upload component</b><p>Throws on iOS Safari when file &gt; 5 MB; upload silently fails.</p></div>
+          <div class="imp"><div class="v">−1,240</div><div class="l">app. starts / mo</div></div>
+        </div>
+        <div class="issue warn">
+          <div class="ic">🐢</div>
+          <div class="tx"><b>Slow eligibility API</b><p>p75 response 4.8s at peak; users abandon before result renders.</p></div>
+          <div class="imp"><div class="v">−9%</div><div class="l">eligibility completion</div></div>
+        </div>
+        <div class="issue warn">
+          <div class="ic">🔗</div>
+          <div class="tx"><b>Broken “Resume application” link</b><p>Deep-link 404s for returning MSME applicants after OTP.</p></div>
+          <div class="imp"><div class="v">−820</div><div class="l">resumes lost / mo</div></div>
+        </div>
+        <div class="issue info">
+          <div class="ic">⏱️</div>
+          <div class="tx"><b>Third-party KYC iframe timeout</b><p>Vendor widget stalls &gt;8s on 4G; correlated with mobile drop-off.</p></div>
+          <div class="imp"><div class="v">2.1×</div><div class="l">abandonment</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example" style="margin-top:16px">
+    <div class="h">◆ Godrej Capital example</div>
+    <p>Marketing sees an unexplained dip in <b>home-loan application starts</b>. The real cause is a JS error on the document-upload component affecting only iOS Safari — invisible in GA4, but detected, quantified and <b>root-caused</b> by Contentsquare before it costs another week of applications.</p>
+  </div>
+
+  <div class="vs">
+    <div class="vs-card ga4">
+      <div class="vh"><span class="badge">GA4</span> Behaviour ≠ health</div>
+      <ul>
+        <li><span class="mk">✕</span><span><b>No true experience or performance monitoring</b> — no JS-error or API-failure detection.</span></li>
+        <li><span class="mk">✕</span><span>You learn of breakage from a <b>conversion dip, days later</b>.</span></li>
+        <li><span class="mk">✕</span><span>No <b>root-cause tooling</b> linking a technical fault to lost applications.</span></li>
+      </ul>
+    </div>
+    <div class="vs-card cs">
+      <div class="vh"><span class="badge">Contentsquare</span> Proactive &amp; quantified</div>
+      <ul>
+        <li><span class="mk">✓</span><span>Detects <b>JS errors, slow pages, API failures, broken journeys</b> in real time.</span></li>
+        <li><span class="mk">✓</span><span>Correlates each fault to <b>behaviour and business impact</b> automatically.</span></li>
+        <li><span class="mk">✓</span><span>Same platform as your analytics — <b>no separate APM stitching</b>.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ 06 REPLAY ============ -->
+<section class="cap reveal" id="replay">
+  <div class="cap-head">
+    <div class="eyebrow"><span class="num">06</span> Session replay &amp; auto-surfaced insight</div>
+    <h2>Go from “what” to “why” — watch the exact sessions</h2>
+    <p class="lead">Aggregate numbers tell you <b>where</b> applicants struggle. Replay shows you <b>exactly why</b> — and Contentsquare auto-surfaces the highest-impact friction so you don’t have to hunt for it. This is the “see the why behind the what” that GA4 fundamentally lacks.</p>
+  </div>
+
+  <div class="replaywrap" style="margin-top:26px">
+    <div class="player">
+      <div class="scr">
+        <div class="mock-card" style="left:12%;top:14%;width:60%;height:12%"></div>
+        <div class="mock-card" style="left:12%;top:34%;width:76%;height:18%"></div>
+        <div class="mock-card" style="left:12%;top:60%;width:44%;height:14%;border-color:rgba(193,74,61,.5)"></div>
+        <div class="rage-pulse" style="left:30%;top:67%"></div>
+        <div class="cursor" style="left:30%;top:67%">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M4 2l6 16 2.5-6.5L19 9z"/></svg>
+        </div>
+      </div>
+      <div class="ctrl">
+        <div class="play"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="track"><i></i><b></b><span class="rmk" style="left:38%"></span><span class="rmk" style="left:44%"></span><span class="rmk" style="left:57%"></span></div>
+        <div class="t">01:12 / 02:58</div>
+      </div>
+      <div class="evt">
+        <span>Landing</span><span>Eligibility ✓</span><span>EMI calc ×3</span><span class="r">Rage click · Upload</span><span class="r">Error · file&gt;5MB</span><span>Exit</span>
+      </div>
+    </div>
+
+    <div class="insights">
+      <div class="insight warn">
+        <div class="it">◆ Auto-surfaced · high impact</div>
+        <p><b>3,180 sessions</b> rage-clicked “Upload” on the KYC step — <b>78% abandoned</b> within 40s.</p>
+        <span class="act">▶ Watch 3 representative sessions</span>
+      </div>
+      <div class="insight">
+        <div class="it">◆ Auto-surfaced · friction</div>
+        <p>“Monthly income” field shows <b>14.6s hesitation</b> and 22% re-entries — a labelling / format ambiguity.</p>
+        <span class="act">▶ Jump to the sessions</span>
+      </div>
+      <div class="insight warn">
+        <div class="it">◆ Auto-surfaced · mobile</div>
+        <p>On 6.5" devices the <b>Submit CTA sits below the fold</b> — 39% of mobile applicants never see it.</p>
+        <span class="act">▶ Watch mobile sessions</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="example" style="margin-top:16px">
+    <div class="h">◆ Godrej Capital example</div>
+    <p>From the rage-click signal on KYC upload, jump straight into the <b>3,180 sessions</b> where it happened and watch applicants fail to upload a PDF over 5 MB. In one afternoon your product team sees the exact defect, the exact device, and the exact fix — no hypothesis, no guesswork.</p>
+  </div>
+
+  <div class="vs">
+    <div class="vs-card ga4">
+      <div class="vh"><span class="badge">GA4</span> Aggregates only</div>
+      <ul>
+        <li><span class="mk">✕</span><span><b>No session replay</b> — you never see the actual struggle.</span></li>
+        <li><span class="mk">✕</span><span><b>No auto-surfaced friction</b> — you must know what to look for.</span></li>
+        <li><span class="mk">✕</span><span>“Why” is <b>inferred from charts</b> and stakeholder guesswork.</span></li>
+      </ul>
+    </div>
+    <div class="vs-card cs">
+      <div class="vh"><span class="badge">Contentsquare</span> The why, on demand</div>
+      <ul>
+        <li><span class="mk">✓</span><span><b>One click</b> from any metric or zone to the real sessions.</span></li>
+        <li><span class="mk">✓</span><span><b>Automatically surfaces &amp; quantifies</b> the highest-impact friction.</span></li>
+        <li><span class="mk">✓</span><span>Turns a debate into a <b>watch-and-fix</b> in the same afternoon.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ 07 COMPARE ============ -->
+<section class="cap reveal" id="compare">
+  <div class="cap-head">
+    <div class="eyebrow"><span class="num">07</span> At a glance</div>
+    <h2>GA4 vs Contentsquare — capability by capability</h2>
+    <p class="lead">The same digital lending business, seen through two very different lenses. GA4 answers <b>“what happened, at the page level, for things we tagged.”</b> Contentsquare answers <b>“why it happened, where exactly, and what it’s costing”</b> — automatically.</p>
+  </div>
+
+  <div class="card tblcard" style="margin-top:26px">
+    <table class="ctbl">
+      <thead>
+        <tr><th>Capability</th><th class="c-ga4">Google Analytics 4</th><th class="c-cs">Contentsquare</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Data capture</td>
+          <td class="c-ga4"><div class="cell"><span class="x">✕</span><span>Predefined events; GTM / dataLayer engineering; <b>no retroactive analysis</b>.</span></div></td>
+          <td class="c-cs"><div class="cell"><span class="v">✓</span><span><b>Autocapture</b> of every interaction; ask new questions about the past.</span></div></td>
+        </tr>
+        <tr>
+          <td>Journey / path reality</td>
+          <td class="c-ga4"><div class="cell"><span class="x">✕</span><span>Linear, pre-defined funnels; loops &amp; detours <b>hidden</b>; sampled.</span></div></td>
+          <td class="c-cs"><div class="cell"><span class="v">✓</span><span>Unsampled <b>path visualization</b>; real loops, detours &amp; exit nodes.</span></div></td>
+        </tr>
+        <tr>
+          <td>Experience &amp; frustration metrics</td>
+          <td class="c-ga4"><div class="cell"><span class="x">✕</span><span>Sessions / pageviews / event counts only; <b>no rage, error or hesitation</b>.</span></div></td>
+          <td class="c-cs"><div class="cell"><span class="v">✓</span><span>Rage / error / dead clicks, hesitation, attention &amp; engagement depth.</span></div></td>
+        </tr>
+        <tr>
+          <td>On-page / zone attribution</td>
+          <td class="c-ga4"><div class="cell"><span class="x">✕</span><span>Page-level only; <b>can’t attribute conversion to a zone</b> or element.</span></div></td>
+          <td class="c-cs"><div class="cell"><span class="v">✓</span><span>Exposure, interaction &amp; <b>conversion/revenue per zone</b>, automatically.</span></div></td>
+        </tr>
+        <tr>
+          <td>Experience &amp; performance monitoring</td>
+          <td class="c-ga4"><div class="cell"><span class="x">✕</span><span><b>None</b> — no JS-error / API-failure detection or root-cause.</span></div></td>
+          <td class="c-cs"><div class="cell"><span class="v">✓</span><span>Proactive detection <b>correlated to business impact</b> (“cost X starts”).</span></div></td>
+        </tr>
+        <tr>
+          <td>Session replay &amp; auto-insight</td>
+          <td class="c-ga4"><div class="cell"><span class="x">✕</span><span>No replay; <b>no auto-surfaced friction</b> — “why” is guesswork.</span></div></td>
+          <td class="c-cs"><div class="cell"><span class="v">✓</span><span>One-click to real sessions; <b>auto-surfaced, quantified</b> friction.</span></div></td>
+        </tr>
+        <tr>
+          <td>Time-to-insight / dev dependency</td>
+          <td class="c-ga4"><div class="cell"><span class="x">✕</span><span>New questions = <b>new tags + dev sprint + weeks</b> of fresh data.</span></div></td>
+          <td class="c-cs"><div class="cell"><span class="v">✓</span><span><b>Minutes, self-serve</b>, retroactive — no engineering backlog.</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="roi">
+    <div class="roicard">
+      <div class="rl">Higher application completion</div>
+      <div class="rn">+5–8 pts</div>
+      <div class="rd">Recover the KYC / upload drop-off that GA4 can’t even see — the single largest recoverable loss in the funnel.</div>
+    </div>
+    <div class="roicard">
+      <div class="rl">Lower CAC waste</div>
+      <div class="rn">Fix the leak</div>
+      <div class="rd">Stop paying to drive high-intent borrowers onto pages and fields that silently fail. Same spend, more funded loans.</div>
+    </div>
+    <div class="roicard">
+      <div class="rl">Faster iteration</div>
+      <div class="rn">Weeks → mins</div>
+      <div class="rd">Product, marketing &amp; CX answer their own questions retroactively — no dev bottleneck between insight and action.</div>
+    </div>
+  </div>
+
+  <div class="takeaway">
+    <h4>What this means for Godrej Capital</h4>
+    <p>GA4 will keep telling you <b>that</b> applicants leave. Contentsquare tells you <b>why, where and what it costs</b> — the rage clicks on KYC upload, the hesitation on income, the iOS error quietly draining home-loan starts, the CTA below the fold on mobile. For a digital-first lender where <b>every point of funnel recovery is real disbursed volume</b>, that is the difference between watching drop-off and <b>removing it</b> — without waiting on engineering.</p>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div class="wrap">
+    <span class="illus">◆ Illustrative data — figures are representative samples for demonstration, not live Godrej Capital measurements.</span>
+    <p style="margin-top:14px">Prepared for <b>Godrej Capital</b> · Contentsquare — one integrated experience-intelligence platform · Capability walkthrough</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var charts = [];
+  function reg(c){ charts.push(c); return c; }
+  var CS='#6c3bf0', CS2='#8a63f4', NAVY='#0d2748', RED='#c14a3d', OK='#1f9d6b', AMBER='#dd9a1f', INK='#5b6b82', LINE='#e6eaf1';
+  var fF = "Inter, -apple-system, sans-serif";
+
+  /* ---------- FUNNEL ---------- */
+  var funnel = reg(echarts.init(document.getElementById('funnelChart')));
+  funnel.setOption({
+    textStyle:{fontFamily:fF},
+    tooltip:{trigger:'item',formatter:function(p){return p.name+'<br/><b>'+p.value+'%</b> of sessions';},
+      backgroundColor:'#0d2748',borderColor:'#0d2748',textStyle:{color:'#fff',fontSize:12}},
+    series:[{
+      type:'funnel',left:'6%',right:'6%',top:6,bottom:6,minSize:'26%',maxSize:'100%',
+      gap:3,sort:'descending',
+      label:{show:true,position:'inside',formatter:'{b}  ·  {c}%',color:'#fff',fontSize:11.5,fontWeight:600},
+      labelLine:{show:false},
+      itemStyle:{borderWidth:0},
+      emphasis:{label:{fontSize:12.5}},
+      data:[
+        {value:100,name:'Landing / product page',itemStyle:{color:'#123763'}},
+        {value:58,name:'Eligibility check',itemStyle:{color:'#2b5c96'}},
+        {value:41,name:'EMI calculator',itemStyle:{color:'#6c3bf0'}},
+        {value:26,name:'Application started',itemStyle:{color:'#8a63f4'}},
+        {value:11.5,name:'KYC & document upload',itemStyle:{color:'#c14a3d'}},
+        {value:6.2,name:'Application submitted',itemStyle:{color:'#1f9d6b'}}
+      ]
+    }]
+  });
+
+  /* ---------- SUNBURST ---------- */
+  var C={fwd1:'#123763',fwd2:'#2b5c96',fwd3:'#6c3bf0',fwd4:'#8a63f4',fwd5:'#b09af6',
+         win:'#1f9d6b',exit:'#c14a3d',exitL:'#dc9a92',loop:'#dd9a1f'};
+  var sun = reg(echarts.init(document.getElementById('sunburstChart')));
+  sun.setOption({
+    textStyle:{fontFamily:fF},
+    tooltip:{trigger:'item',
+      formatter:function(p){var v=p.value?(' · '+p.value+' sessions'):''; return '<b>'+p.name+'</b>'+v;},
+      backgroundColor:'#0d2748',borderColor:'#0d2748',textStyle:{color:'#fff',fontSize:12}},
+    series:[{
+      type:'sunburst',radius:['14%','96%'],center:['50%','50%'],
+      emphasis:{focus:'ancestor'},
+      itemStyle:{borderColor:'#fff',borderWidth:1.4},
+      label:{rotate:'radial',color:'#fff',fontSize:10,minAngle:8,fontWeight:500,overflow:'truncate'},
+      levels:[{},
+        {r0:'14%',r:'32%',label:{rotate:'tangential',fontSize:11.5,fontWeight:600}},
+        {r0:'32%',r:'46%',label:{rotate:'tangential'}},
+        {r0:'46%',r:'59%'},
+        {r0:'59%',r:'72%'},
+        {r0:'72%',r:'85%'},
+        {r0:'85%',r:'96%',label:{rotate:'radial',fontSize:9.5,minAngle:12}}
+      ],
+      data:[{
+        name:'Landing', itemStyle:{color:C.fwd1},
+        children:[
+          { name:'Eligibility', itemStyle:{color:C.fwd2}, children:[
+            { name:'EMI calc', itemStyle:{color:C.fwd3}, children:[
+              { name:'Apply', itemStyle:{color:C.fwd4}, children:[
+                { name:'KYC upload', itemStyle:{color:C.fwd5}, children:[
+                  {name:'Submitted ✓',value:620,itemStyle:{color:C.win}},
+                  {name:'Exit · upload fail',value:540,itemStyle:{color:C.exit}},
+                  {name:'↩ back to EMI',value:170,itemStyle:{color:C.loop}}
+                ]},
+                {name:'↩ re-check EMI',value:240,itemStyle:{color:C.loop}},
+                {name:'Exit',value:300,itemStyle:{color:C.exit}}
+              ]},
+              {name:'Exit',value:470,itemStyle:{color:C.exit}}
+            ]},
+            { name:'Apply (skip EMI)', itemStyle:{color:C.fwd4}, children:[
+              {name:'KYC upload',itemStyle:{color:C.fwd5},children:[
+                {name:'Submitted ✓',value:210,itemStyle:{color:C.win}},
+                {name:'Exit · upload fail',value:250,itemStyle:{color:C.exit}}
+              ]},
+              {name:'Exit',value:230,itemStyle:{color:C.exit}}
+            ]},
+            {name:'Exit',value:500,itemStyle:{color:C.exit}}
+          ]},
+          { name:'EMI calc (direct)', itemStyle:{color:C.fwd3}, children:[
+            { name:'Eligibility', itemStyle:{color:C.fwd2}, children:[
+              {name:'Apply',itemStyle:{color:C.fwd4},children:[
+                {name:'Submitted ✓',value:150,itemStyle:{color:C.win}},
+                {name:'Exit',value:210,itemStyle:{color:C.exit}}
+              ]},
+              {name:'Exit',value:180,itemStyle:{color:C.exit}}
+            ]},
+            {name:'Exit',value:360,itemStyle:{color:C.exit}}
+          ]},
+          { name:'Exit · bounce', value:900, itemStyle:{color:C.exitL}}
+        ]
+      }]
+    }]
+  });
+
+  /* ---------- GAUGES ---------- */
+  function gauge(el,val,color,suffix){
+    var g = reg(echarts.init(document.getElementById(el)));
+    g.setOption({
+      textStyle:{fontFamily:fF},
+      series:[{
+        type:'gauge',startAngle:210,endAngle:-30,min:0,max:100,radius:'96%',center:['50%','62%'],
+        progress:{show:true,width:13,itemStyle:{color:color}},
+        axisLine:{lineStyle:{width:13,color:[[1,'#eef1f6']]}},
+        pointer:{show:false},
+        axisTick:{show:false},splitLine:{show:false},
+        axisLabel:{show:true,distance:-16,color:'#aab5c5',fontSize:9},
+        anchor:{show:false},
+        title:{show:false},
+        detail:{valueAnimation:true,offsetCenter:[0,'-2%'],fontSize:30,fontWeight:800,
+          color:NAVY,formatter:'{value}'+suffix,fontFamily:fF},
+        data:[{value:val}]
+      }]
+    });
+  }
+  gauge('gaugeErr',9.7,RED,'%');
+  gauge('gaugeEng',61,OK,'%');
+
+  /* ---------- ZONE BARS ---------- */
+  var zb = reg(echarts.init(document.getElementById('zoneBars')));
+  var zdata=[
+    {name:'“Check eligibility” CTA',v:18},
+    {name:'EMI calculator link',v:9},
+    {name:'Submit application CTA',v:7},
+    {name:'Consent / T&C checkbox',v:-4},
+    {name:'Monthly income field',v:-8},
+    {name:'Income-proof upload',v:-23}
+  ];
+  zb.setOption({
+    textStyle:{fontFamily:fF},
+    grid:{left:4,right:36,top:6,bottom:6,containLabel:true},
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},
+      formatter:function(p){var d=p[0];return d.name+'<br/><b>'+(d.value>0?'+':'')+d.value+'</b> net conversion impact';},
+      backgroundColor:'#0d2748',borderColor:'#0d2748',textStyle:{color:'#fff',fontSize:12}},
+    xAxis:{type:'value',axisLine:{show:false},axisTick:{show:false},
+      splitLine:{lineStyle:{color:LINE}},axisLabel:{color:'#aab5c5',fontSize:10,formatter:'{value}'}},
+    yAxis:{type:'category',inverse:true,data:zdata.map(function(d){return d.name;}),
+      axisLine:{show:false},axisTick:{show:false},axisLabel:{color:INK,fontSize:11.5}},
+    series:[{
+      type:'bar',data:zdata.map(function(d){
+        return {value:d.v,itemStyle:{color:d.v>=0?(d.v>=10?OK:CS):RED,borderRadius:4}};
+      }),
+      barWidth:15,
+      label:{show:true,position:'right',formatter:function(p){return (p.value>0?'+':'')+p.value;},
+        color:INK,fontSize:11,fontWeight:600}
+    }]
+  });
+
+  /* ---------- DEM DUAL AXIS ---------- */
+  var dem = reg(echarts.init(document.getElementById('demChart')));
+  var days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  dem.setOption({
+    textStyle:{fontFamily:fF},
+    tooltip:{trigger:'axis',backgroundColor:'#0d2748',borderColor:'#0d2748',textStyle:{color:'#fff',fontSize:12}},
+    legend:{data:['JS errors (upload)','Application submissions'],top:0,textStyle:{color:INK,fontSize:11},
+      icon:'roundRect',itemWidth:11,itemHeight:11},
+    grid:{left:6,right:10,top:38,bottom:6,containLabel:true},
+    xAxis:{type:'category',data:days,boundaryGap:false,axisLine:{lineStyle:{color:LINE}},
+      axisTick:{show:false},axisLabel:{color:'#8695a8',fontSize:11}},
+    yAxis:[
+      {type:'value',name:'JS errors',nameTextStyle:{color:RED,fontSize:10},position:'left',
+        axisLabel:{color:'#aab5c5',fontSize:10},splitLine:{lineStyle:{color:LINE}}},
+      {type:'value',name:'Submissions',nameTextStyle:{color:OK,fontSize:10},position:'right',
+        axisLabel:{color:'#aab5c5',fontSize:10},splitLine:{show:false}}
+    ],
+    series:[
+      {name:'JS errors (upload)',type:'line',smooth:true,yAxisIndex:0,
+        data:[120,140,610,300,180,150,130],
+        lineStyle:{color:RED,width:3},itemStyle:{color:RED},symbolSize:6,
+        areaStyle:{color:'rgba(193,74,61,.10)'},
+        markArea:{itemStyle:{color:'rgba(193,74,61,.07)'},
+          data:[[{xAxis:'Tue'},{xAxis:'Wed'}]]},
+        markPoint:{symbolSize:44,itemStyle:{color:RED},label:{color:'#fff',fontSize:10},
+          data:[{coord:['Wed',610],value:'spike'}]}},
+      {name:'Application submissions',type:'line',smooth:true,yAxisIndex:1,
+        data:[540,560,300,410,520,470,500],
+        lineStyle:{color:OK,width:3},itemStyle:{color:OK},symbolSize:6,
+        areaStyle:{color:'rgba(31,157,107,.08)'}}
+    ]
+  });
+
+  /* ---------- resize ---------- */
+  window.addEventListener('resize',function(){ charts.forEach(function(c){ c.resize(); }); });
+
+  /* ---------- reveal on scroll ---------- */
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  /* ---------- scroll-spy nav ---------- */
+  var links={}; document.querySelectorAll('.nav-pills a').forEach(function(a){ links[a.getAttribute('href').slice(1)]=a; });
+  var spy=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        Object.keys(links).forEach(function(k){links[k].classList.remove('active');});
+        if(links[e.target.id]) links[e.target.id].classList.add('active');
+      }
+    });
+  },{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('section.cap').forEach(function(s){ spy.observe(s); });
+})();
+</script>
+</body>
+</html>
